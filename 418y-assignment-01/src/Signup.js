@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 
-import './Signup.css'; //This will make whole page red since it's still within the main App.css
+import './Signup.css'; 
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -21,7 +21,6 @@ function Signup() {
     axios.post('http://localhost:9000/createUser', signupValues)
       .then((res) => {
         alert('Signup successful!');
-        // You can add code here to redirect or clear the form if you wish
       })
       .catch((err) => {
         console.error('Signup error:', err);

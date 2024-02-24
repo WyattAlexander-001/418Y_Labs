@@ -50,7 +50,7 @@ app.post('/createUser', async (req, res) => {
 
 app.get('/getUser', async (req, res) => {
     const username = req.query.username;
-    const password = req.query.password; // In real applications, use hashed passwords
+    const password = req.query.password; 
     try {
       const user = await User.findOne({ username: username });
       if(user && user.password === password) {
