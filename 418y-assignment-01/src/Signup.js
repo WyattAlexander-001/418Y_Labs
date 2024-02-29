@@ -13,8 +13,8 @@ function Signup() {
   const handleSignUp = (event) => {
     event.preventDefault();
     const signupValues = {
-      f_name: firstName,
-      l_name: lastName,
+      firstName: firstName,
+      lastName: lastName,
       username: userId,
       password: password
     };
@@ -27,6 +27,7 @@ function Signup() {
         alert('Error in Signing Up');
       });
   };
+  
   
   
 
