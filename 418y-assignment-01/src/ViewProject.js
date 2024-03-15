@@ -36,7 +36,7 @@ function ViewProjects() {
             <tr key={index}>
               <td>{project.proj_name}</td>
               <td>{project.proj_desc}</td>
-              <td>{project.prod_owner_id}</td> {/* Adjust these fields based on your actual data structure */}
+              <td>{project.prod_owner_id}</td> 
               <td>{project.mgr_id}</td>
               <td>{project.team_id}</td>
             </tr>
