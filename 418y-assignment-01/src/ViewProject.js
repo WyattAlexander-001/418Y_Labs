@@ -23,11 +23,11 @@ function ViewProject() {
       <table className="team-table">
         <thead>
           <tr>
-            <th>Project Name</th>
-            <th>Description</th>
-            <th>Product Owner</th>
-            <th>Manager</th>
-            <th>Team</th>
+            <th>Project Name: </th>
+            <th>Description: </th>
+            <th>Product Owner: </th>
+            <th>Manager: </th>
+            <th>Team: </th>
           </tr>
         </thead>
         <tbody>
