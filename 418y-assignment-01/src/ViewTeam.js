@@ -21,12 +21,20 @@ function ViewTeam() {
   return (
     <div>
       <h2>Teams</h2>
-      <ul>
-        //Create table, and table headers   
-        {teams.map((team, index) => (
-          <li key={index}>{team.team_name}</li>
-        ))}
-      </ul>
+      <table className="team-table">
+        <thead>
+          <tr>
+            <th>Team Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {teams.map((team, index) => (
+            <tr key={index}>
+              <td>{team.team_name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

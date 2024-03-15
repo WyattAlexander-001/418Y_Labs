@@ -20,7 +20,7 @@ function ViewProject() {
   return (
     <div>
       <h2>Projects</h2>
-      <table>
+      <table className="team-table">
         <thead>
           <tr>
             <th>Project Name</th>
