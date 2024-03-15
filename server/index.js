@@ -94,7 +94,6 @@ app.get('/getUsers', async (req, res) => {
   try {
       const userList = await Users.find({}, {firstName:1, lastName:1});
       console.log("User list: " + userList)
-      console.log("User first name: " + firstName + " User last name: " + lastName)
       res.send(userList)
   }
   catch (error) {

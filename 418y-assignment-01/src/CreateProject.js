@@ -51,6 +51,16 @@ useEffect(() => {
   .catch(function (error) {
     console.log(error);
   })
+
+  axios.get('http://localhost:9000/getTeams')
+  .then(function (response) {
+    setTeams(response.data)
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+
+
   }, []);
 
   
@@ -87,7 +97,7 @@ useEffect(() => {
           PRODUCT OWNER NAME: 
           <select onChange={(e) => setProductOwnerId(e.target.value)} value={prod_owner_id}>
             <option value="">Select Product Owner</option>
-            {productOwners.map((owner, index) => {
+            {users.map((owner, index) => {
               return <option key={index} value={owner._id}>
                 {owner.firstName} {owner.lastName}
               </option>;
