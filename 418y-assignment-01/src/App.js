@@ -5,6 +5,7 @@ import Signup from './Signup';
 
 //Style for while project:
 import './App.css';
+import CreateTeam from './CreateTeam';
 
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
+          <Route path="/createTeam" element={<CreateTeam />} /> 
+          <Route path="/viewTeam" element={<Signup />} /> 
+          <Route path="/ViewProject" element={<Signup />} /> 
         </Routes>
       </div>
     </Router>

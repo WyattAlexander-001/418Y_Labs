@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom';
+
 
 import './Login.css';
 
 function Login() {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    const loginValues = {
-      username: userId,
-      password: password
-    };
-    axios.get('http://localhost:9000/getUser', { params: loginValues })
-      .then((res) => {
-        if(res.data) {
-          alert('Login Successful');
-        } else {
-          alert('YOU FAILED BRUH');
-        }
-      })
-      .catch((err) => {
-        console.error('Login error:', err);
-        alert('Error in Login');
-      });
-  };
-  
+  const handleLogin = (event, username, password) => {
+    event.preventDefault()
+    axios.get('http://localhost:9000/getUser', { params: { username, password}})
+        .then((res) => {
+            if (res.data) {
+                alert('Login Successful')
+                localStorage.clear()
+                localStorage.setItem('loggedInUser', res.data._id)
+	              navigate("/Home");
+            }
+            else {
+                alert('Wrong Credentials')
+            }
+        })
+        .catch((err) => alert('Error in Login'))
+}
 
   return (
     <div>
