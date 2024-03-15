@@ -24,13 +24,10 @@ function Signup() {
       })
       .catch((err) => {
         console.error('Signup error:', err);
-        alert('Error in Signing Up');
+        alert('Error in Signing Up SOMEBODY HAS THAT USERNAME!');
       });
   };
   
-  
-  
-
   return (
     <div>
       <h2>Signup</h2>
@@ -46,7 +43,7 @@ function Signup() {
         </label>
         <br />
         <label>
-          User ID:
+          User Name:
           <input type="text" value={userId} onChange={e => setUserId(e.target.value)} />
         </label>
         <br />

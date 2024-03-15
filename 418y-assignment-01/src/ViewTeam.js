@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ViewTeams() {
+function ViewTeam() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function ViewTeams() {
     <div>
       <h2>Teams</h2>
       <ul>
+        //Create table, and table headers   
         {teams.map((team, index) => (
           <li key={index}>{team.team_name}</li>
         ))}
@@ -30,4 +31,4 @@ function ViewTeams() {
   );
 }
 
-export default ViewTeams;
+export default ViewTeam;

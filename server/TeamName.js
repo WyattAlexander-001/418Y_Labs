@@ -4,6 +4,6 @@ const TeamSchema = new mongoose.Schema({
     team_name: String
 });
 
-const Team = mongoose.model("Team", TeamSchema);
+const TeamName = mongoose.model("Team", TeamSchema);
 
-module.exports = Team;
+module.exports = TeamName;

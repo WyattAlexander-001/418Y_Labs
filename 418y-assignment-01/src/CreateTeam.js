@@ -10,7 +10,7 @@ function CreateTeam() {
     try {
       await axios.post('http://localhost:9000/createTeam', { team_name });
       alert('Team created successfully');
-      setTeamName(''); // Reset the input after successful submission
+      //setTeamName(''); // Reset the input after successful submission
     } catch (error) {
       alert('Failed to create team');
       console.error(error);

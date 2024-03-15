@@ -1,8 +1,9 @@
 import {React,  useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
-import Select from 'react-select';
 import { set } from 'mongoose';
+import Select from 'react-select';
+
 
 function CreateTeamRoster() {
   const [proj_name, setProjectName] = useState('');
@@ -16,7 +17,7 @@ function CreateTeamRoster() {
 
   
 
-  const handleCreateProject = (event, proj_name, proj_desc, prod_owner_id, mgr_id, team_id) => {
+  const handleCreateRoster = (event, proj_name, proj_desc, prod_owner_id, mgr_id, team_id) => {
     event.preventDefault()
     axios.post('http://localhost:9000/createProject', { proj_name, proj_desc, prod_owner_id, mgr_id, team_id })
         .catch((err) => alert('Error in Creating project'))

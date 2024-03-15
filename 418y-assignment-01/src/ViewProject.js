@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ViewProjects() {
+function ViewProject() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,6 @@ function ViewProjects() {
         console.error(error);
       }
     };
-
     fetchProjects();
   }, []);
 
@@ -34,11 +33,12 @@ function ViewProjects() {
         <tbody>
           {projects.map((project, index) => (
             <tr key={index}>
-              <td>{project.proj_name}</td>
-              <td>{project.proj_desc}</td>
-              <td>{project.prod_owner_id}</td> 
-              <td>{project.mgr_id}</td>
-              <td>{project.team_id}</td>
+              <td>{project.project_name}</td>
+              <td>{project. description}</td>
+              <td>{project.owner_details}</td> 
+              <td>{project.manager_details}</td>
+              <td>{project.team_details}</td>
+
             </tr>
           ))}
         </tbody>
@@ -47,4 +47,4 @@ function ViewProjects() {
   );
 }
 
-export default ViewProjects;
+export default ViewProject;

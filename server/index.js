@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
+const Users = require('./Users.js') //lab 2
 const Project = require('./Projects.js') //lab 3
-const TeamName = require('./TeamName.js') //lab 3 
+const TeamName = require('./TeamName.js') //lab 3
 
 app.use(express.json());
 app.use(cors())
@@ -21,27 +22,15 @@ const database = mongoose.connection
 database.on('error',(error) => console.error(error))
 database.once('connected', () => console.log('Connected to Database'))
 
-
-// Define the User schema and model
-const userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    username: { type: String, unique: true },
-    password: String
-  });
-
-  //Model
-  const User = mongoose.model('User', userSchema, "users");
-
-
 app.get('/', (req, res) => {
     res.send('Hello, world! This is the API root.');
 });
 
 
+//lab 2
 app.post('/createUser', async (req, res) => {
     try {
-        const user = new User(req.body);
+        const user = new Users(req.body);
         await user.save()
         res.send(user)
     }
@@ -50,11 +39,12 @@ app.post('/createUser', async (req, res) => {
     }
 })
 
+//lab 2
 app.get('/getUser', async (req, res) => {
     const username = req.query.username;
     const password = req.query.password; 
     try {
-      const user = await User.findOne({ username: username });
+      const user = await Users.findOne({ username: username });
       if(user && user.password === password) {
         // Passwords match
         res.send({ message: 'Login was successful', user });
@@ -85,7 +75,7 @@ app.get('/getUser', async (req, res) => {
 app.post('/createTeam', async (req, res) => {
   try {
       // Create a new team using the model and request body
-      const team = new Team({
+      const team = new TeamName({
           team_name: req.body.team_name
       });
 
@@ -102,7 +92,9 @@ app.post('/createTeam', async (req, res) => {
 // Get all projects, Google Find Fucntion // Fetches All the data & builds userlist
 app.get('/getUsers', async (req, res) => {
   try {
-      const userList = await User.find({}, {firstName:1, lastName:1});
+      const userList = await Users.find({}, {firstName:1, lastName:1});
+      console.log("User list: " + userList)
+      console.log("User first name: " + firstName + " User last name: " + lastName)
       res.send(userList)
   }
   catch (error) {
@@ -116,9 +108,13 @@ app.get('/getProjects', async (req, res) => {
       const projects = await Project.find()
       let responseDetails = []
       for (const project of projects) {
-         const manager = await Users.findById(project.manager_id)
-         const owner = await Users.findById(project.owner_id)
-         const team = await Team.findById(project.team_id)
+         const manager = await Users.findById(project.mgr_id)
+         console.log(project.mgr_id + " Proj Mgr ")
+         console.log(manager)
+         const c = await Users.findById(project.owner_id)
+         console.log(owner + " owner ")
+         const team = await TeamName.findById(project.team_id)
+         console.log(team + " team ")
          responseDetails.push({
            project_name: project.project_name,
            description: project.description,
@@ -136,7 +132,7 @@ app.get('/getProjects', async (req, res) => {
 
 app.get('/getTeams', async (req, res) => {
   try {
-      const teams = await Team.find()
+      const teams = await TeamName.find()
       res.send(teams)
   }
   catch (error) {

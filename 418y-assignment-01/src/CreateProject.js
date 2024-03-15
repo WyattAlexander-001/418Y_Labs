@@ -11,7 +11,7 @@ function CreateProject() {
   const [mgr_id, setManagerId] = useState('');
   const [team_id,  setTeamId] = useState('');
   const [users, setUsers] = useState([]);
-  const [productOwners, setProductOwners] = useState([]); 
+  const [productOwners, setProductOwners] = useState([]); //iffy
   const [teams, setTeams] = useState([]); // State variable for teams
 
   
@@ -70,11 +70,6 @@ useEffect(() => {
         </label>
         <br />
         <label>
-            PRODUCT OWNER ID
-          <input type="text" value={prod_owner_id} onChange={e => setProductOwnerId(e.target.value)} />
-        </label>
-        <br />
-        <label>
             MANAGER ID: 
 
             <select onChange={(e) => setManagerId(e.target.value)} value={mgr_id}>
@@ -115,11 +110,6 @@ useEffect(() => {
         </label>
         <br />
   
-
-        <label>
-            TEAM ID
-          <input type="text" value={team_id} onChange={e => setTeamId(e.target.value)} />
-        </label>
         <button type="button" onClick={(event) => handleCreateProject(event, proj_name, proj_desc, prod_owner_id, mgr_id, team_id)}>
           Create Project!!!
         </button>

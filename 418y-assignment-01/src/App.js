@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+
 import Login from './Login';
 import Signup from './Signup';
+import Users from './Users';
+import CreateProject from './CreateProject';
+import CreateTeam from './CreateTeam';
 
 //Style for while project:
 import './App.css';
-import CreateTeam from './CreateTeam';
-
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
           <Route path="/createTeam" element={<CreateTeam />} /> 
           <Route path="/viewTeam" element={<Signup />} /> 
           <Route path="/ViewProject" element={<Signup />} /> 
+          <Route path="/Users" element={<Users />} /> 
         </Routes>
       </div>
     </Router>
