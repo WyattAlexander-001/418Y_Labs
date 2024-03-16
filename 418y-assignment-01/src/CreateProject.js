@@ -22,27 +22,6 @@ function CreateProject() {
         .catch((err) => alert('Error in Creating project'))
 }
 
-// const handleCreateProject = (event) => {
-//   event.preventDefault();
-//   // Check if project with the same name already exists
-//   axios.get(`http://localhost:9000/projects?name=${proj_name}`)
-//     .then(response => {
-//       if (response.data && response.data.length > 0) {
-//         // Project with the same name exists
-//         alert('A project with this name already exists. Please choose a different name.');
-//       } else {
-//         // No existing project with the same name, proceed to create
-//         axios.post('http://localhost:9000/createProject', { proj_name, proj_desc, prod_owner_id, mgr_id, team_id })
-//           .then(() => alert('Project created successfully'))
-//           .catch((err) => alert('Error in Creating project'));
-//       }
-//     })
-//     .catch((err) => {
-//       console.error('Error checking existing projects', err);
-//       alert('Error checking for existing projects');
-//     });
-// };
-
 useEffect(() => {
   axios.get('http://localhost:9000/getUsers')
   .then(function (response) {

@@ -40,7 +40,7 @@ app.post('/createUser', async (req, res) => {
 })
 
 //lab 2
-app.get('/getUser', async (req, res) => {
+  app.get('/getUser', async (req, res) => {
     const username = req.query.username;
     const password = req.query.password; 
     try {
@@ -56,7 +56,8 @@ app.get('/getUser', async (req, res) => {
     catch (error) {
       res.status(500).send(error);
     }
-  });
+});
+
 
   //lab 3
   app.post('/createProject', async (req, res) => {
@@ -101,33 +102,39 @@ app.get('/getUsers', async (req, res) => {
   }
 })
 
-// For fetching the list of projects
+//This returns:
+/* 
+Project Name: | Description: | Product Owner: | Manager: | Team: |
+Test Project | This is a test | 
+
+
+*/
+// app.get('/getProjects', async (req, res) => {
+//   try {
+//     res.send([{project_name: "Test Project", description: "This is a test"}]);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("An error occurred");
+//   }
+// });
+
 app.get('/getProjects', async (req, res) => {
   try {
-      const projects = await Project.find()
-      let responseDetails = []
-      for (const project of projects) {
-         const manager = await Users.findById(project.mgr_id)
-         console.log(project.mgr_id + " Proj Mgr ")
-         console.log(manager)
-         const c = await Users.findById(project.owner_id)
-         console.log(owner + " owner ")
-         const team = await TeamName.findById(project.team_id)
-         console.log(team + " team ")
-         responseDetails.push({
-           project_name: project.project_name,
-           description: project.description,
-           manager_details: manager,
-           owner_details: owner,
-           teams_details: team
-         })
-      }
-      res.send(responseDetails)
+    const projects = await Project.find();
+    const simpleProjects = projects.map(project => ({
+      project_name: project.proj_name,
+      description: project.proj_desc,
+      owner_details: project.prod_owner_id,
+      manager_details: project.mgr_id,
+      team_details: project.team_id,
+    }));
+    res.send(simpleProjects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred fetching projects from the database.");
   }
-  catch (error) {
-      res.status(500).send(error)
-  }
-})
+});
+
 
 app.get('/getTeams', async (req, res) => {
   try {

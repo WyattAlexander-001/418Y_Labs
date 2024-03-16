@@ -61,7 +61,7 @@ button:hover {
 .team-table {
   width: 100%;
   border-collapse: collapse; /* Ensure that the borders between cells are merged */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Consistent with your form styling */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
   margin: 20px auto; /* Center the table and provide some spacing */
   background-color: white; /* Consistent background */
 }
