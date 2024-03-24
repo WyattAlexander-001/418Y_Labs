@@ -93,7 +93,7 @@ app.post('/createTeam', async (req, res) => {
 // Get all projects, Google Find Fucntion // Fetches All the data & builds userlist
 app.get('/getUsers', async (req, res) => {
   try {
-      const userList = await Users.find({}, {firstName:1, lastName:1});
+      const userList = await Users.find({}, {firstName:1, lastName:1, username:1, _id:1});
       console.log("User list: " + userList)
       res.send(userList)
   }

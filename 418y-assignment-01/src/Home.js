@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 
@@ -16,13 +15,12 @@ const Home = () => {
     return (
         <div>
             <h1>Home</h1>
-            <p>Welcome to the Home Page</p>
+            <p>Welcome to the Home Page!</p>
 
 
             <>
                 { loggedInUser != null &&
                    <p> {"Welcome! " + loggedInUser}</p> 
-                   //implement Welcome Username, First name last name
                 }
                 </>
               
@@ -46,3 +44,6 @@ const Home = () => {
 }
 
 export default Home
+
+
+

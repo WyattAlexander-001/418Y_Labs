@@ -4,7 +4,7 @@ import './index.css';
 import { useNavigate } from 'react-router-dom'; //lab 4
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, createBrowserRouter, createRoutesFromElements, RouterProvider, } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import Users from './Users';
@@ -14,13 +14,11 @@ import ViewProject from './ViewProject';
 import ViewTeam from './ViewTeam';
 import Home from './Home'; //lab 4
 import CreateTeamRoster from './CreateTeamRoster'; //lab 4
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
+import Navbar from './Navbar';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+    <Route path = "/Navbar" element = {<Navbar/>}/>
     <Route path = "/" element = {<Home/>}/>
     <Route path = "/Home" element = {<Home/>}/>
     <Route path = "/Users" element = {<Users/>}/>
@@ -37,12 +35,13 @@ const router = createBrowserRouter(
     </>
   )
 )
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router = {router}>
-    <App />
-    </RouterProvider>
+    <App router={router} /> {/* Pass the router as a prop to App */}
   </React.StrictMode>
 );
 
 reportWebVitals();
+
+

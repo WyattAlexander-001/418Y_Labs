@@ -7,31 +7,26 @@ import Users from './Users';
 import CreateProject from './CreateProject';
 import CreateTeam from './CreateTeam';
 
-//Style for while project:
-import './App.css';
+import ViewTeam from './ViewTeam'; // Assuming this component exists
+import ViewProject from './ViewProject';
+
+import Navbar from './Navbar';
+import Home from './Home';
 
 function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/login">Login Here</Link>  
-            </li>
-            <li>
-              <Link to="/signup">Signup Here</Link> 
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/login" />} />
+        <Navbar />
+        <Routes>        
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
           <Route path="/createTeam" element={<CreateTeam />} /> 
-          <Route path="/viewTeam" element={<Signup />} /> 
-          <Route path="/ViewProject" element={<Signup />} /> 
+          <Route path="/createProject" element={<CreateProject />} />
+          <Route path="/viewTeam" element={<ViewTeam />} /> 
+          <Route path="/ViewProject" element={<ViewProject />} /> 
           <Route path="/Users" element={<Users />} /> 
         </Routes>
       </div>
@@ -40,3 +35,9 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
