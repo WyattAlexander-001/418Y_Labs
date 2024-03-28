@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 
 import Login from './Login';
 import Signup from './Signup';
@@ -12,6 +12,8 @@ import ViewProject from './ViewProject';
 
 import Navbar from './Navbar';
 import Home from './Home';
+import CreateTeamRoster from './CreateTeamRoster';
+import ViewRoster from './ViewRoster';
 
 function App() {
   return (
@@ -20,13 +22,15 @@ function App() {
         <Navbar />
         <Routes>        
           <Route path="/" element={<Navigate replace to="/home" />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
           <Route path="/createTeam" element={<CreateTeam />} /> 
           <Route path="/createProject" element={<CreateProject />} />
           <Route path="/viewTeam" element={<ViewTeam />} /> 
           <Route path="/ViewProject" element={<ViewProject />} /> 
+          <Route path="/createTeamRoster" element={<CreateTeamRoster />} /> 
+          <Route path="/viewRoster" element={<ViewRoster />} /> 
           <Route path="/Users" element={<Users />} /> 
         </Routes>
       </div>

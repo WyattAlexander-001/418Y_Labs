@@ -11,7 +11,12 @@ function Navbar() {
           <li><Link to="/createTeam">Create Team</Link></li>
           <li><Link to="/ViewTeam"> View Team</Link></li>
           <li><Link to="/createProject">Create Project</Link></li>
-            <li><Link to="/ViewProject">View Projects</Link></li>
+          <li><Link to="/ViewProject">View Projects</Link></li>
+
+          <li><Link to="/createTeamRoster">Create Team Roster</Link></li>
+          <li><Link to="/viewRoster">View Team Roster</Link></li>
+          <li><Link to="/createUserStory">Create User Story</Link></li>
+          <li><Link to="/viewUserStory">View User Story</Link></li>
         </ul>
       </nav>
     );

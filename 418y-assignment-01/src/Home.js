@@ -13,6 +13,7 @@ const Home = () => {
       }
 
     return (
+      //This code is from Lab 4 imp guide
         <div>
             <h1>Home</h1>
             <p>Welcome to the Home Page!</p>
