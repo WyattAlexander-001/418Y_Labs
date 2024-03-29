@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import Axios
 
-import './Signup.css'; 
 
 function Signup() {
   const [firstName, setFirstName] = useState('');

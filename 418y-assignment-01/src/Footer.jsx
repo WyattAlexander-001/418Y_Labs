@@ -1,7 +1,7 @@
 function Footer(){
     return(
         <footer>
-            <p>© 2021, All Rights Reserved.</p>
+            <p>© 2024, All Rights Reserved.</p>
         </footer>
     );
 }

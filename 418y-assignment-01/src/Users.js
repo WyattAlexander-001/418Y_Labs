@@ -7,8 +7,8 @@ const Users = () => {
 
     return (
         <div>
-            <h1>Users</h1>
-
+            <h1>Users:</h1>
+            <p>Yeah I put nothing here....</p>
         </div>
     )
 }

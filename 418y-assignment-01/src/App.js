@@ -15,6 +15,9 @@ import Home from './Home';
 import CreateTeamRoster from './CreateTeamRoster';
 import ViewRoster from './ViewRoster';
 
+import CreateUserStory from './CreateUserStory';
+import ViewUserStory from './ViewUserStory';
+
 function App() {
   return (
     <Router>
@@ -23,15 +26,27 @@ function App() {
         <Routes>        
           <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path="/Home" element={<Home />} />
+          
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
-          <Route path="/createTeam" element={<CreateTeam />} /> 
-          <Route path="/createProject" element={<CreateProject />} />
-          <Route path="/viewTeam" element={<ViewTeam />} /> 
-          <Route path="/ViewProject" element={<ViewProject />} /> 
-          <Route path="/createTeamRoster" element={<CreateTeamRoster />} /> 
-          <Route path="/viewRoster" element={<ViewRoster />} /> 
           <Route path="/Users" element={<Users />} /> 
+          
+          <Route path="/createTeam" element={<CreateTeam />} /> 
+          <Route path="/viewTeam" element={<ViewTeam />} /> 
+
+          <Route path="/createProject" element={<CreateProject />} />
+          <Route path="/ViewProject" element={<ViewProject />} /> 
+
+          <Route path="/createTeamRoster" element={<CreateTeamRoster />} /> 
+          <Route path="/viewRoster" element={<ViewRoster />} />
+
+          <Route path="createUserStory" element={<CreateUserStory />} />
+          <Route path="viewUserStory" element={<ViewUserStory />} />
+
+
+
+
         </Routes>
       </div>
     </Router>
