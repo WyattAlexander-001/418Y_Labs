@@ -38,9 +38,9 @@ function ViewProject() {
             <tr key={index}>
               <td>{project.project_name}</td>
               <td>{project.description}</td>
-              <td>{project.owner_details}</td> 
-              <td>{project.manager_details}</td>
-              <td>{project.team_details}</td>
+              <td>{project.owner_details.firstName}</td> 
+              <td>{project.manager_details.firstName}</td>
+              <td>{project.team_details.team_name}</td>
             </tr>
           ))}
         </tbody>

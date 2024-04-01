@@ -23,23 +23,21 @@ function CreateProject() {
 }
 
 useEffect(() => {
-  axios.get('http://localhost:9000/getUsers')
-  .then(function (response) {
-    setUsers(response.data)
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
+    axios.get('http://localhost:9000/getUsers')
+    .then(function (response) {
+      setUsers(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
 
-  axios.get('http://localhost:9000/getTeams')
-  .then(function (response) {
-    setTeams(response.data)
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-
-
+    axios.get('http://localhost:9000/getTeams')
+    .then(function (response) {
+      setTeams(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   }, []);
 
   

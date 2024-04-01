@@ -9,13 +9,13 @@ function CreateUserStory() {
   const [priority, setPriority] = useState(0);
 
   useEffect(() => {
-    axios.get('/getProjects').then((res) => setProjects(res.data));
+    axios.get('http://localhost:9000/getProjects').then((res) => setProjects(res.data));
   }, []);
 
   const projectOptions = projects.map((project) => ({ label: project.proj_name, value: project._id }));
 
   const handleSubmit = () => {
-    axios.post('/createUserStory', { user_story: userStory, proj_id: selectedProject, priority })
+    axios.post('http://localhost:9000/createUserStory', { user_story: userStory, proj_id: selectedProject, priority })
       .then(() => alert('User story added successfully'))
       .catch((err) => alert('Error adding user story'));
   };
@@ -23,6 +23,7 @@ function CreateUserStory() {
   return (
     <div>
       <Select
+        isMulti
         options={projectOptions}
         onChange={(option) => setSelectedProject(option.value)}
       />

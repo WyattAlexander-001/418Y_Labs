@@ -5,7 +5,7 @@ function ViewUserStory() {
   const [userStories, setUserStories] = useState([]);
 
   useEffect(() => {
-    axios.get('/getUserStories')
+    axios.get('http://localhost:9000/getUserStories')
       .then((response) => {
         setUserStories(response.data);
       })
@@ -16,7 +16,7 @@ function ViewUserStory() {
 
   return (
     <div>
-      <h2>User Stories</h2>
+      <h2>User Stories:</h2>
       <ul>
         {userStories.map((story, index) => (
           <li key={index}>

@@ -6,6 +6,9 @@ const Users = require('./Users.js') //lab 2
 const Project = require('./Projects.js') //lab 3
 const TeamName = require('./TeamName.js') //lab 3
 
+const TeamRoster = require('./TeamRoster.js'); //lab 4
+const UserStory = require('./UserStory.js'); // lab 4
+
 app.use(express.json());
 app.use(cors())
 
@@ -64,7 +67,7 @@ app.post('/createUser', async (req, res) => {
     try {
             const project = new Project(req.body);
             project.save()
-            console.log(`Project created! ${project}`)
+            // console.log(`Project created! ${project}`)
             res.send(project)
     }
     catch (error){
@@ -118,22 +121,33 @@ Test Project | This is a test |
 //   }
 // });
 
+//Don't Change!
 app.get('/getProjects', async (req, res) => {
   try {
-    const projects = await Project.find();
-    const simpleProjects = projects.map(project => ({
-      project_name: project.proj_name,
-      description: project.proj_desc,
-      owner_details: project.prod_owner_id,
-      manager_details: project.mgr_id,
-      team_details: project.team_id,
-    }));
-    res.send(simpleProjects);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("An error occurred fetching projects from the database.");
+      const projects = await Project.find()
+      let responseDetails = []
+      for (const project of projects) {
+        console.log("project: " + project)
+         const manager = await Users.findById(project.mgr_id)
+         console.log("manager: " + manager)
+         const owner = await Users.findById(project.prod_owner_id)
+          console.log("owner: " + owner)
+         const team = await TeamName.findById(project.team_id)
+          console.log("team: " + team)
+         responseDetails.push({
+           project_name: project.proj_name,
+           description: project.proj_desc,
+           manager_details: manager,
+           owner_details: owner,
+           team_details: team
+         })
+      }
+      res.send(responseDetails)
   }
-});
+  catch (error) {
+      res.status(500).send(error)
+  }
+})
 
 
 app.get('/getTeams', async (req, res) => {
@@ -145,6 +159,66 @@ app.get('/getTeams', async (req, res) => {
       res.status
   }
 })
+
+// Endpoint to create a team roster
+app.post('/addMembersToTeam', async (req, res) => {
+  try {
+    console.log("Members:" + req.body.member_ids)
+    for (const member_id of req.body.member_ids) {
+      const teamRoster = new TeamRoster({
+        team_id: req.body.team_id,
+        member_id: member_id
+      });
+      await teamRoster.save();
+    }
+    res.status(200).send("Members added to team roster successfully.");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred adding members to team roster.");
+  }
+});
+
+
+// Endpoint to get team members by team ID
+app.get('/getTeamMembers/:teamId', async (req, res) => {
+  try {
+      const roster = await TeamRoster.findOne({ team_id: req.params.teamId }).populate('member_ids');
+      if (!roster) {
+          return res.status(404).send({ message: "Roster not found" });
+      }
+      res.send(roster.member_ids); // Sending back only the member details
+  } catch (error) {
+      console.error("Failed to fetch team members:", error);
+      res.status(500).send(error);
+  }
+});
+
+
+
+// Endpoint to create a user story
+app.post('/createUserStory', async (req, res) => {
+    try {
+        const story = new UserStory(req.body);
+        await story.save();
+        res.status(201).send({ message: "User story created successfully", story: story });
+    } catch (error) {
+        console.error("Failed to create user story:", error);
+        res.status(500).send(error);
+    }
+});
+
+// Endpoint to get all user stories
+app.get('/getUserStories', async (req, res) => {
+  try {
+      const stories = await UserStory.find().populate('proj_id');
+      res.send(stories);
+  } catch (error) {
+      console.error("Failed to fetch user stories:", error);
+      res.status(500).send(error);
+  }
+});
+
+
 
 
 

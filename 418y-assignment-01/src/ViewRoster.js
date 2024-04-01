@@ -8,15 +8,16 @@ function ViewRoster() {
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
-    axios.get('/getTeams')
-      .then((res) => setTeams(res.data))
-      .catch((err) => console.error("Error fetching teams: ", err));
-  }, []);
-
-  useEffect(() => {
     if (selectedTeam) {
-      axios.get(`/getTeamMembers/${selectedTeam}`)
-        .then((res) => setTeamMembers(res.data.members))
+      axios.get(`http://localhost:9000/getTeamMembers/${selectedTeam}`)
+        .then(async (res) => {
+          const memberDetailsPromises = res.data.map(memberId =>
+            axios.get(`http://localhost:9000/getMemberDetails/${memberId}`)
+          );
+          const memberDetailsResponses = await Promise.all(memberDetailsPromises);
+          const memberDetails = memberDetailsResponses.map(response => response.data);
+          setTeamMembers(memberDetails);
+        })
         .catch((err) => console.error("Error fetching team members: ", err));
     }
   }, [selectedTeam]);

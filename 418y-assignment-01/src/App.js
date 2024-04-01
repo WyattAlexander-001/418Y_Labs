@@ -31,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} /> 
           <Route path="/Users" element={<Users />} /> 
-          
+
           <Route path="/createTeam" element={<CreateTeam />} /> 
           <Route path="/viewTeam" element={<ViewTeam />} /> 
 
@@ -43,9 +43,6 @@ function App() {
 
           <Route path="createUserStory" element={<CreateUserStory />} />
           <Route path="viewUserStory" element={<ViewUserStory />} />
-
-
-
 
         </Routes>
       </div>
