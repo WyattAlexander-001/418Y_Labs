@@ -161,32 +161,16 @@ app.get('/getTeams', async (req, res) => {
 })
 
 // Endpoint to create a team roster
-app.post('/addMembersToTeam', async (req, res) => {
-  try {
-    console.log("Members:" + req.body.member_ids)
-    for (const member_id of req.body.member_ids) {
-      const teamRoster = new TeamRoster({
-        team_id: req.body.team_id,
-        member_id: member_id
-      });
-      await teamRoster.save();
-    }
-    res.status(200).send("Members added to team roster successfully.");
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("An error occurred adding members to team roster.");
-  }
-});
-
 // app.post('/addMembersToTeam', async (req, res) => {
 //   try {
-//     const { team_id, member_ids } = req.body;
-//     // Instead of creating a new document for each member, create one document for the team with all members
-//     const teamRoster = new TeamRoster({
-//       team_id: team_id,
-//       member_ids: member_ids // This now expects an array of member IDs
-//     });
-//     await teamRoster.save();
+//     console.log("Members:" + req.body.member_ids)
+//     for (const member_id of req.body.member_ids) {
+//       const teamRoster = new TeamRoster({
+//         team_id: req.body.team_id,
+//         member_id: member_id
+//       });
+//       await teamRoster.save();
+//     }
 //     res.status(200).send("Members added to team roster successfully.");
 //   } catch (error) {
 //     console.error(error);
@@ -194,21 +178,52 @@ app.post('/addMembersToTeam', async (req, res) => {
 //   }
 // });
 
+app.post('/addMembersToTeam', async (req, res) => {
+  try {
+    console.log("Request Body:", req.body); // Log the entire request body to see the data structure
+
+    // Assuming member_ids is meant to be an array based on the updated schema
+    const { team_id, member_ids } = req.body;
+    console.log("Team ID:", team_id);
+    console.log("Member IDs:", member_ids);
+
+    // Create a single document with the team_id and all member_ids
+    const teamRoster = new TeamRoster({
+      team_id,
+      member_ids
+    });
+
+    await teamRoster.save();
+    console.log("Saved Team Roster:", teamRoster); // Log the saved team roster document
+
+    res.status(200).send({ message: "Members added to team roster successfully.", roster: teamRoster });
+  } catch (error) {
+    console.error("An error occurred adding members to team roster:", error);
+    res.status(500).send({ message: "An error occurred adding members to team roster.", error: error });
+  }
+});
+
+
 
 
 // Endpoint to get team members by team ID
 app.get('/getTeamMembers/:teamId', async (req, res) => {
   try {
+      console.log("Fetching roster for team ID:", req.params.teamId);
       const roster = await TeamRoster.findOne({ team_id: req.params.teamId }).populate('member_ids');
+      console.log("Found roster:", roster);
       if (!roster) {
           return res.status(404).send({ message: "Roster not found" });
       }
+      console.log("Member IDs:", roster.member_ids);
       res.send(roster.member_ids); // Sending back only the member details
   } catch (error) {
       console.error("Failed to fetch team members:", error);
       res.status(500).send(error);
   }
 });
+
+
 
 
 
@@ -228,12 +243,14 @@ app.post('/createUserStory', async (req, res) => {
 app.get('/getUserStories', async (req, res) => {
   try {
       const stories = await UserStory.find().populate('proj_id');
+      console.log("Fetched stories with project details:", stories); // Debugging statement
       res.send(stories);
   } catch (error) {
       console.error("Failed to fetch user stories:", error);
       res.status(500).send(error);
   }
 });
+
 
 
 
