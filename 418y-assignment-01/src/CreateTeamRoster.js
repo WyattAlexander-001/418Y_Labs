@@ -29,11 +29,21 @@ function CreateTeamRoster() {
   const teamOptions = teams.map((team) => ({ label: team.team_name, value: team._id }));
   const userOptions = users.map((user) => ({ label: `${user.firstName} ${user.lastName}`, value: user._id }));
 
+  // const handleSubmit = () => {
+  //   axios.post('http://localhost:9000/addMembersToTeam', { team_id: selectedTeam, member_ids: selectedUsers.map(u => u.value) })
+  //     .then(() => alert('Members added successfully'))
+  //     .catch((err) => alert('Error adding members to team'));
+  // };
+
   const handleSubmit = () => {
-    axios.post('http://localhost:9000/addMembersToTeam', { team_id: selectedTeam, member_ids: selectedUsers.map(u => u.value) })
-      .then(() => alert('Members added successfully'))
-      .catch((err) => alert('Error adding members to team'));
+    axios.post('http://localhost:9000/addMembersToTeam', { 
+      team_id: selectedTeam, 
+      member_ids: selectedUsers.map(u => u.value) // Mapping selected users to their IDs
+    })
+    .then(() => alert('Members added successfully'))
+    .catch((err) => alert('Error adding members to team'));
   };
+  
 
   return (
     <div>

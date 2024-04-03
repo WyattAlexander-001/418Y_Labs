@@ -178,6 +178,23 @@ app.post('/addMembersToTeam', async (req, res) => {
   }
 });
 
+// app.post('/addMembersToTeam', async (req, res) => {
+//   try {
+//     const { team_id, member_ids } = req.body;
+//     // Instead of creating a new document for each member, create one document for the team with all members
+//     const teamRoster = new TeamRoster({
+//       team_id: team_id,
+//       member_ids: member_ids // This now expects an array of member IDs
+//     });
+//     await teamRoster.save();
+//     res.status(200).send("Members added to team roster successfully.");
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("An error occurred adding members to team roster.");
+//   }
+// });
+
+
 
 // Endpoint to get team members by team ID
 app.get('/getTeamMembers/:teamId', async (req, res) => {
