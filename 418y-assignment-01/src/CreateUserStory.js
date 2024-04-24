@@ -4,12 +4,12 @@ import Select from 'react-select';
 
 function CreateUserStory() {
   const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null); // null indicates no project is selected initially
+  const [selectedProject, setSelectedProject] = useState(''); // null indicates no project is selected initially
   const [userStory, setUserStory] = useState('');
   const [priority, setPriority] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:9000/getProjects')
+    axios.get('http://localhost:9000/getProjectsForUserStory')
       .then((res) => {
         console.log('Projects fetched:', res.data); // Log the response data
         setProjects(res.data); 
@@ -25,21 +25,11 @@ function CreateUserStory() {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     console.log("Selected Project at submission:", selectedProject);
-    if (!selectedProject) {
-      alert('Please select a project.');
-      return;
-    }
-    if (!userStory.trim()) {
-      alert('Please enter a user story description.');
-      return;
-    }
+
     const submissionPriority = priority ? parseInt(priority, 10) : 0; // Use 0 as default if priority is not set
     axios.post('http://localhost:9000/createUserStory', { user_story: userStory, proj_id: selectedProject, priority: submissionPriority })
       .then(() => {
         alert('User story added successfully');
-        setUserStory('');
-        setPriority('');
-        setSelectedProject(null);
       })
       .catch((err) => alert('Error adding user story'));
   };
@@ -49,19 +39,15 @@ function CreateUserStory() {
       <h2>Create User Story</h2>
       <form onSubmit={handleSubmit}>
         <div>
-        <Select
-            options={projectOptions}
+        <select onChange={(e) => setSelectedProject(e.target.value)} value={selectedProject}>
+            <option value="">Select Project To Create User Story</option>
+            {projects.map((project, index) => {
+              return <option key={index} value={project._id}>
+                {project.proj_name}
+              </option>;
+            })}
+          </select>
 
-            onChange={(option) => {
-                console.log("Project selected:", option ? option.value : "No selection");
-                setSelectedProject(option ? option.value : null);
-              }}
-              
-
-            placeholder="Select a Project"
-            isClearable={true}
-            value={projectOptions.find(option => option.value === selectedProject)}
-            />
         </div>
         <div>
           <textarea

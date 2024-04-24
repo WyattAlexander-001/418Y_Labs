@@ -128,13 +128,14 @@ app.get('/getProjects', async (req, res) => {
       let responseDetails = []
       for (const project of projects) {
         console.log("project: " + project)
-         const manager = await Users.findById(project.mgr_id)
+         const manager = await Users.findById(project.mgr_id) //mgr_id matches schema
          console.log("manager: " + manager)
-         const owner = await Users.findById(project.prod_owner_id)
+         const owner = await Users.findById(project.prod_owner_id) //prod_owner_id matches schema
           console.log("owner: " + owner)
-         const team = await TeamName.findById(project.team_id)
+         const team = await TeamName.findById(project.team_id) //team_id matches schema
           console.log("team: " + team)
          responseDetails.push({
+          //Use the left hand side to display the data
            project_name: project.proj_name,
            description: project.proj_desc,
            manager_details: manager,
@@ -182,7 +183,6 @@ app.post('/addMembersToTeam', async (req, res) => {
   try {
     console.log("Request Body:", req.body); // Log the entire request body to see the data structure
 
-    // Assuming member_ids is meant to be an array based on the updated schema
     const { team_id, member_ids } = req.body;
     console.log("Team ID:", team_id);
     console.log("Member IDs:", member_ids);
@@ -192,8 +192,8 @@ app.post('/addMembersToTeam', async (req, res) => {
       team_id,
       member_ids
     });
-
     await teamRoster.save();
+
     console.log("Saved Team Roster:", teamRoster); // Log the saved team roster document
 
     res.status(200).send({ message: "Members added to team roster successfully.", roster: teamRoster });
@@ -224,6 +224,15 @@ app.get('/getTeamMembers/:teamId', async (req, res) => {
 });
 
 
+app.get('/getProjectsForUserStory', async (req, res) => {
+  try {
+      const projects = await Project.find()
+      res.send(projects)
+  }
+  catch (error) {
+      res.status
+  }
+})
 
 
 
@@ -239,17 +248,34 @@ app.post('/createUserStory', async (req, res) => {
     }
 });
 
-// Endpoint to get all user stories
+
+
 app.get('/getUserStories', async (req, res) => {
   try {
-      const stories = await UserStory.find().populate('proj_id');
-      console.log("Fetched stories with project details:", stories); // Debugging statement
-      res.send(stories);
-  } catch (error) {
-      console.error("Failed to fetch user stories:", error);
-      res.status(500).send(error);
+      const stories = await UserStory.find()
+      let responseDetails = []
+      for (const story of stories) {
+
+         console.log("story: " + story)
+
+          const project = await Project.findById(story.proj_id)
+
+          console.log("project: " + project)
+
+          responseDetails.push({
+              user_story: story.user_story,
+              project_name: project.proj_name,
+              priority: story.priority
+          })
+      }
+      res.send(responseDetails)
   }
-});
+  catch (error) {
+      res.status
+  }
+})
+
+
 
 
 

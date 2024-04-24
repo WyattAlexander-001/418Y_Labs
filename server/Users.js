@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 // Define the User schema and model
+//These are correct
 const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,

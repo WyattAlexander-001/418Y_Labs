@@ -36,7 +36,7 @@ function ViewProject() {
         <tbody>
           {projects.map((project, index) => (
             <tr key={index}>
-              <td>{project.project_name}</td>
+              <td>{project.project_name}</td> 
               <td>{project.description}</td>
               <td>{project.owner_details.firstName}</td> 
               <td>{project.manager_details.firstName}</td>

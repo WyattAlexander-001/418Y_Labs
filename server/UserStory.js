@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//Correct
 const UserStorySchema = new mongoose.Schema({
     user_story: String,
     proj_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },

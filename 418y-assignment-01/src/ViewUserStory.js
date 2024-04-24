@@ -18,9 +18,15 @@ function ViewUserStory() {
     <div>
       <h2>User Stories:</h2>
       <ul>
+
+      {/* user_story: story.user_story,
+      project_name: project.proj_name,
+      priority: story.priority */}
+
+
         {userStories.map((story, index) => (
           <li key={index}>
-            <strong>{story.user_story}</strong> (Priority: {story.priority}) - Project ID: {story.proj_id}
+            <strong>{story.user_story}</strong> (Priority: {story.priority}) - Project NAME: {story.project_name}
           </li>
         ))}
       </ul>
