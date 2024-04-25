@@ -275,11 +275,113 @@ app.get('/getUserStories', async (req, res) => {
   }
 })
 
+// Assign and Edit User Stories:
+
+// Route to get unassigned user stories
+app.get('/unassignedUserStories', async (req, res) => {
+  try {
+      const stories = await UserStory.find({ assigned_to: null }); // Assuming 'assigned_to' field exists
+      res.json(stories);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+// Route to assign a user story
+app.post('/assignUserStory', async (req, res) => {
+  console.log("Assigning User Story, User ID:", req.body.userId);
+  console.log("Story ID to assign:", req.body.id);
+  try {
+      const { id, userId } = req.body;  // Get user ID from the request body
+      if (!userId) {
+          return res.status(401).json({ message: "User ID not provided" });
+      }
+
+      const result = await UserStory.findByIdAndUpdate(id, { assigned_to: userId }, { new: true });
+      if (!result) {
+          return res.status(404).json({ message: "User story not found" });
+      }
+      res.json(result);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+
+
+// app.post('/assignUserStory', async (req, res) => {
+//   try {
+//       const { id } = req.body;
+//       // Temporarily use a hardcoded user ID
+//       const userId = "someHardcodedUserId"; // Replace with an actual user ID from your database
+//       const result = await UserStory.findByIdAndUpdate(id, { assigned_to: userId }, { new: true });
+//       res.json(result);
+//   } catch (error) {
+//       res.status(500).json({ message: error.message });
+//   }
+// });
 
 
 
 
 
+// Route to get user stories for a project
+app.get('/userStories/:projectId', async (req, res) => {
+  console.log("WTF???")
+  console.log("Received projectId:", req.params.projectId); // Should be an ObjectId
+  try {
+    // Find the project ObjectId based on the project name
+    const project = await Project.findOne({ proj_name: req.params.projectId });
+    if (!project) {
+        return res.status(404).json({ message: 'Project not found' });
+    }
+
+    const projectId = project._id; // Get the ObjectId of the project
+    const stories = await UserStory.find({ proj_id: projectId });
+    res.json(stories);
+  } catch (error) {
+      console.error('Error fetching user stories:', error);
+      res.status(500).json({ message: error.message });
+  }
+});
 
 
-  
+// Route to delete a user story
+app.delete('/deleteUserStory/:id', async (req, res) => {
+  try {
+      const { id } = req.params;
+      await UserStory.findByIdAndDelete(id);
+      res.json({ message: 'User story deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+
+// Get user stories assigned to a specific user
+app.get('/assignedUserStories/:userId', async (req, res) => {
+  try {
+      const { userId } = req.params;
+      const stories = await UserStory.find({ assigned_to: userId }).exec(); // Ensure you're querying the correct field
+      res.json(stories);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+
+// Get user by ID
+app.get('/getUserById/:userId', async (req, res) => {
+  try {
+      const user = await Users.findById(req.params.userId);
+      if (!user) {
+          return res.status(404).send({ message: "User not found" });
+      }
+      res.send(user);
+  } catch (error) {
+      res.status(500).send(error);
+  }
+});
+
+
+

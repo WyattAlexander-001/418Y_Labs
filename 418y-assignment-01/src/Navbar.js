@@ -16,6 +16,10 @@ function Navbar() {
           <li><Link to="/createTeamRoster">Create Team Roster</Link></li>
           <li><Link to="/viewRoster">View Team Roster</Link></li>
           <li><Link to="/createUserStory">Create User Story</Link></li>
+
+          <li><Link to="/assignUserStory">Assign User Story</Link></li>
+          <li><Link to="/editUserStory">Edit User Story</Link></li>
+          
           <li><Link to="/viewUserStory">View User Story</Link></li>
         </ul>
       </nav>

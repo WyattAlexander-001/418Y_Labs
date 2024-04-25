@@ -1,50 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
-
+import axios from 'axios';
 
 const Home = () => {
     const navigate = useNavigate();
-    const loggedInUser = localStorage.getItem('loggedInUser')
-    const handleSignOut = (event) => {
-        event.preventDefault()
-        localStorage.clear()
-        navigate("/Login");
-      }
+    const [userName, setUserName] = useState('');
+    const [userStories, setUserStories] = useState([]);
+    const userId = localStorage.getItem('loggedInUser');
+
+    useEffect(() => {
+        if (userId) {
+            axios.get(`http://localhost:9000/getUserById/${userId}`)
+                .then(response => {
+                    setUserName(`${response.data.firstName} ${response.data.lastName}`);
+                    // Fetch user stories after confirming the user
+                    fetchUserStories(userId);
+                })
+                .catch(error => {
+                    console.error("Error fetching user details:", error);
+                    navigate("/login");
+                });
+        } else {
+            navigate("/login");
+        }
+    }, [userId, navigate]);
+
+    const fetchUserStories = (userId) => {
+        axios.get(`http://localhost:9000/assignedUserStories/${userId}`)
+            .then(response => {
+                setUserStories(response.data); // Set the user stories in state
+            })
+            .catch(error => {
+                console.error("Error fetching user stories:", error);
+            });
+    };
+
+    const handleSignOut = () => {
+        localStorage.clear();
+        navigate("/login");
+    };
 
     return (
-      //This code is from Lab 4 imp guide
         <div>
             <h1>Home</h1>
             <p>Welcome to the Home Page!</p>
-
-
-            <>
-                { loggedInUser != null &&
-                   <p> {"Welcome! " + loggedInUser}</p> 
-                }
-                </>
-              
-              <>
-                { loggedInUser != null &&
-                    <button type="button" onClick={(event) => {
-                    handleSignOut(event)
-                }}>Sign Out</button>
-                }
-                </>
+            {userName ? (
                 <>
-                { loggedInUser == null &&
-                    <p className="text-center">
-                      Already have an account? <Link to="/login">Login</Link>
-                    </p>
-                }
+                    <p>Welcome, {userName}!</p>
+                    <ul>
+                        {userStories.map(story => (
+                            <li key={story._id}>
+                                {story.user_story} - Priority: {story.priority}
+                            </li>
+                        ))}
+                    </ul>
+                    <button onClick={handleSignOut}>Sign Out</button>
                 </>
-
+            ) : (
+                <p>Loading user information...</p> // Show a loading or processing state
+            )}
+            {!userId && (
+                <p className="text-center">
+                    You need to log in. <Link to="/login">Login</Link>
+                </p>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Home
-
-
-
+export default Home;

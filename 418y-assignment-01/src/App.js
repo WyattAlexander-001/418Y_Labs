@@ -18,6 +18,9 @@ import ViewRoster from './ViewRoster';
 import CreateUserStory from './CreateUserStory';
 import ViewUserStory from './ViewUserStory';
 
+import AssignUserStories from './AssignUserStories';
+import EditUserStories from './EditUserStories';
+
 function App() {
   return (
     <Router>
@@ -41,6 +44,8 @@ function App() {
           <Route path="/createTeamRoster" element={<CreateTeamRoster />} /> 
           <Route path="/viewRoster" element={<ViewRoster />} />
 
+          <Route path="assignUserStory" element={<AssignUserStories />} />
+          <Route path="editUserStory" element={<EditUserStories />} />
           <Route path="createUserStory" element={<CreateUserStory />} />
           <Route path="viewUserStory" element={<ViewUserStory />} />
 
