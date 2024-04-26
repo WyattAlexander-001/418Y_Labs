@@ -383,5 +383,23 @@ app.get('/getUserById/:userId', async (req, res) => {
   }
 });
 
+// Route to update a user story
+app.put('/updateUserStory/:id', async (req, res) => {
+  try {
+      const { id } = req.params;
+      const updates = req.body;
+
+      const updatedStory = await UserStory.findByIdAndUpdate(id, updates, { new: true });
+      if (!updatedStory) {
+          return res.status(404).json({ message: "User story not found" });
+      }
+      res.json({ message: "User story updated successfully", updatedStory });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+
+
 
 
